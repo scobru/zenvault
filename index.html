@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Keep | Scobru</title>
-  <meta name="description" content="Keep - End-to-End Encrypted Private Vault by Scobru.">
+  <title>Zen Vault | Scobru</title>
+  <meta name="description" content="Zen Vault - End-to-End Encrypted Private Vault by Scobru.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +29,7 @@
       --font-sans: 'Outfit', sans-serif;
       --font-mono: 'IBM Plex Mono', monospace;
 
-      /* Keep Accent is E2EE Red */
+      /* Zen Vault Accent is E2EE Red */
       --accent: #e01e37;
       --accent-glow: rgba(224, 30, 55, 0.15);
       --badge-zen: #00b4d8;
@@ -531,17 +532,20 @@
 
     <!-- Top Nav Controls -->
     <div class="lt-top-bar">
-      <div>
+      <div style="display: flex; gap: 8px;">
         <a class="lt-action-btn" href="https://scobru.dev/" aria-label="Go Back" title="Go back to index">
           <i class="ti ti-arrow-left"></i>
+        </a>
+        <a class="lt-action-btn" href="https://github.com/scobru/zenvault" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository" title="GitHub Repository scobru/zenvault">
+          <i class="ti ti-brand-github"></i>
         </a>
       </div>
       <div style="display: flex; gap: 8px;">
         <button class="lt-action-btn" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Light/Dark Theme">
           <i class="ti ti-asterisk"></i>
         </button>
-        <button class="lt-action-btn hidden" id="logout-btn" onclick="logout()" aria-label="Lock Vault"
-          title="Lock vault">
+        <button class="lt-action-btn hidden" id="logout-btn" onclick="logout()" aria-label="Lock Zen Vault"
+          title="Lock Zen Vault">
           <i class="ti ti-lock"></i>
         </button>
       </div>
@@ -552,10 +556,10 @@
       <div class="lt-avatar-container">
         <div class="lt-avatar-fallback ic-zen"><i class="ti ti-lock"></i></div>
       </div>
-      <h1 class="lt-name">Keep</h1>
-      <p class="lt-bio">End-to-End Encrypted Private Vault</p>
+      <h1 class="lt-name">Zen Vault</h1>
+      <p class="lt-bio">End-to-End Encrypted Private Zen Vault</p>
       <div class="lt-meta-row">
-        <span class="lt-badge">DOC: KEEP.MD</span>
+        <span class="lt-badge">DOC: README.MD</span>
         <span class="lt-badge lt-badge-accent"><i class="ti ti-shield-lock"></i> E2EE ACTIVE</span>
       </div>
     </header>
@@ -563,7 +567,7 @@
     <!-- Authentication Section -->
     <section class="lt-section" id="auth-section">
       <h2 class="lt-section-title" id="auth-toggle" style="cursor: pointer; user-select: none;">
-        unlock vault <i class="ti ti-chevron-down" id="auth-chevron"
+        unlock Zen Vault <i class="ti ti-chevron-down" id="auth-chevron"
           style="transition: transform 0.2s; font-size: 14px; margin-left: 4px; transform: rotate(-90deg);"></i>
       </h2>
       <div class="lt-card-body hidden" id="auth-body">
@@ -581,7 +585,7 @@
     <section class="lt-section" id="lock-screen">
       <div class="lt-card-body" style="text-align: center; padding: 3rem 1.5rem;">
         <i class="ti ti-shield-lock" style="font-size: 48px; color: var(--accent); margin-bottom: 1rem;"></i>
-        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 0.5rem;">Vault is Locked</h3>
+        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 0.5rem;">Zen Vault is Locked</h3>
         <p class="lt-card-desc" style="max-width: 320px; margin: 0 auto;">Your local dataset is securely encrypted
           inside Gun graph database. Authenticate to view.</p>
       </div>
