@@ -25,678 +25,1294 @@
     }
 
     :root {
-      /* Shared Design System Tokens */
       --font-sans: 'Outfit', sans-serif;
       --font-mono: 'IBM Plex Mono', monospace;
 
-      /* Zen Vault Accent is E2EE Red */
       --accent: #e01e37;
-      --accent-glow: rgba(224, 30, 55, 0.15);
+      --accent-hover: #c1121f;
+      --accent-light: rgba(224, 30, 55, 0.08);
       --badge-zen: #00b4d8;
     }
 
-    /* Light Theme (matching reference screenshot) */
+    /* Light Theme */
     [data-theme="light"] {
-      --bg-outer: #f5f6f8;
+      --bg-app: #f4f5f6;
+      --bg-sidebar: #ffffff;
       --bg-card: #ffffff;
-      --text-primary: #121212;
-      --text-secondary: #5e6670;
-      --text-muted: #8c96a3;
-      --card-bg: #ffffff;
-      --card-bg-hover: #f8f9fa;
-      --card-border: rgba(0, 0, 0, 0.08);
-      --card-border-hover: rgba(0, 0, 0, 0.16);
-      --container-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
-      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-      --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.06);
-      --badge-bg: #f1f3f5;
-      --badge-bg-hover: #e9ecef;
-      --avatar-ring: linear-gradient(135deg, #00b4d8, #e01e37);
-      --input-bg: #f8f9fa;
+      --bg-editor: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --text-muted: #9ca3af;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-color-hover: rgba(0, 0, 0, 0.16);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+      --input-bg: #f9fafb;
+      --active-bg: #f3f4f6;
     }
 
     /* Dark Theme */
     [data-theme="dark"] {
-      --bg-outer: #090a0c;
-      --bg-card: #121316;
-      --text-primary: #f5f5f7;
-      --text-secondary: #9ba0a5;
-      --text-muted: #4a4f54;
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --card-bg-hover: rgba(255, 255, 255, 0.06);
-      --card-border: rgba(255, 255, 255, 0.06);
-      --card-border-hover: rgba(255, 255, 255, 0.12);
-      --container-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.2);
-      --badge-bg: rgba(255, 255, 255, 0.05);
-      --badge-bg-hover: rgba(255, 255, 255, 0.1);
-      --avatar-ring: linear-gradient(135deg, #2ec4b6, #ffb703);
-      --input-bg: rgba(0, 0, 0, 0.2);
+      --bg-app: #0d0e12;
+      --bg-sidebar: #13151a;
+      --bg-card: #181b22;
+      --bg-editor: #181b22;
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-color-hover: rgba(255, 255, 255, 0.15);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+      --input-bg: #111317;
+      --active-bg: #1f232b;
     }
 
     body {
       font-family: var(--font-sans);
-      background: var(--bg-outer);
+      background: var(--bg-app);
       color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 1rem;
-      transition: background 0.4s ease, color 0.4s ease;
-    }
-
-    /* ── Floating App Canvas ── */
-    .lt-card {
-      background: var(--bg-card);
-      width: 100%;
-      max-width: 800px;
-      border-radius: 32px;
-      box-shadow: var(--container-shadow);
-      padding: 2.5rem 2rem;
-      position: relative;
-      border: 1px solid var(--card-border);
-      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    /* ── Top Floating Action Bar ── */
-    .lt-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .lt-action-btn {
-      background: var(--badge-bg);
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--text-primary);
-      font-size: 18px;
-      text-decoration: none;
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s ease, color 0.2s ease;
-    }
-
-    .lt-action-btn:hover {
-      transform: scale(1.08);
-      background: var(--badge-bg-hover);
-    }
-
-    .lt-action-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* ── Header ── */
-    .lt-header {
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .lt-avatar-container {
-      width: 84px;
-      height: 84px;
-      border-radius: 50%;
-      margin: 0 auto 1.25rem;
-      padding: 3px;
-      background: var(--avatar-ring);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    .lt-avatar-fallback {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: var(--bg-card);
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-    }
-
-    /* Color scheme based icon fallback background tint */
-    .ic-zen {
-      background: rgba(224, 30, 55, 0.06) !important;
-    }
-
-    .lt-name {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-      letter-spacing: -0.5px;
-    }
-
-    .lt-bio {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      max-width: 380px;
-      margin: 0 auto 10px;
-      font-weight: 400;
-    }
-
-    .lt-meta-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .lt-badge {
-      font-size: 11px;
-      padding: 3px 10px;
-      border: 1px solid var(--card-border);
-      border-radius: 50px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-
-    .lt-badge-accent {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: var(--accent-glow);
-    }
-
-    /* ── Sections ── */
-    .lt-section {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .lt-section-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      margin-top: 1rem;
-      letter-spacing: 0.08em;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .lt-section-title::after {
-      content: "";
-      height: 1px;
-      flex: 1;
-      background: var(--card-border);
-    }
-
-    .lt-card-body {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: var(--card-shadow);
-      transition: all 0.3s ease;
-    }
-
-    .lt-card-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-bottom: 14px;
-    }
-
-    /* ── Modern Form Control ── */
-    .lt-form-row {
-      display: flex;
-      gap: 12px;
-      width: 100%;
-    }
-
-    @media (max-width: 640px) {
-      .lt-form-row {
-        flex-direction: column;
-      }
-    }
-
-    .lt-input {
-      background-color: var(--input-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-primary);
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-family: var(--font-sans);
-      font-size: 14px;
-      flex: 1;
-      width: 100%;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    textarea.lt-input {
-      font-family: var(--font-mono);
-      font-size: 13px;
-    }
-
-    .lt-input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-
-    .lt-btn {
-      background: var(--accent);
-      color: #ffffff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-family: var(--font-sans);
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s ease;
-    }
-
-    .lt-btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.1);
-    }
-
-    .lt-btn:active {
-      transform: translateY(0);
-    }
-
-    /* ── Decrypted Items Loop ── */
-    .category-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .section-divider {
-      font-size: 12px;
-      text-transform: uppercase;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 15px;
-    }
-
-    .section-divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--card-border);
-    }
-
-    .items-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    @media (max-width: 768px) {
-      .items-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ── Note Card (Rendered Dynamically) ── */
-    .item-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: var(--card-shadow);
-      position: relative;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    .item-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent);
-      box-shadow: var(--card-shadow-hover);
-    }
-
-    .item-card-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--accent-glow);
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-    }
-
-    .item-card h3 {
-      font-family: var(--font-sans);
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .item-card p.note-text {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-secondary);
-      line-height: 1.5;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-    }
-
-    .trash-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: var(--badge-bg);
-      border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 13px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s, color 0.2s, transform 0.2s;
-      z-index: 5;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    .trash-btn:hover {
-      background-color: rgba(224, 30, 55, 0.15);
-      color: var(--accent);
-      transform: scale(1.1);
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
     }
 
-    .edit-btn {
-      position: absolute;
-      top: 15px;
-      right: 50px;
-      background: var(--badge-bg);
-      border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s, color 0.2s, transform 0.2s;
-      z-index: 5;
+    ::-webkit-scrollbar-track {
+      background: transparent;
     }
 
-    .edit-btn:hover {
-      background-color: var(--accent-glow);
-      color: var(--accent);
-      transform: scale(1.1);
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
     }
 
-    /* ── Toast Notification ── */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(18, 19, 22, 0.9);
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 500;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      backdrop-filter: blur(8px);
-      z-index: 10000;
-      opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    [data-theme="light"] .toast {
-      background: rgba(255, 255, 255, 0.95);
-      color: #121212;
-      border: 1px solid rgba(0, 0, 0, 0.05);
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
     }
 
     .hidden {
       display: none !important;
     }
 
-    /* ── Modal Design ── */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal.is-open {
+    /* ── Dashboard Layout ── */
+    .dashboard-wrapper {
       display: flex;
-    }
-
-    .modal-content {
-      background-color: var(--bg-card);
-      border: 1px solid var(--card-border);
-      max-width: 600px;
       width: 100%;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      height: 100%;
       position: relative;
     }
 
-    .modal-title {
-      font-family: var(--font-sans);
-      font-size: 18px;
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-weight: 700;
-      margin-bottom: 8px;
+      font-size: 20px;
+      letter-spacing: -0.5px;
       color: var(--text-primary);
-      border-bottom: 1px dashed var(--card-border);
-      padding-bottom: 10px;
     }
 
-    .modal-text {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      max-height: 400px;
-      overflow-y: auto;
-      margin-bottom: 20px;
-      padding-right: 8px;
+    .sidebar-logo i {
+      color: var(--accent);
+      font-size: 22px;
     }
 
-    .modal-close {
-      text-align: right;
-    }
-
-    .bracket-btn {
-      background: var(--badge-bg);
+    .hamburger-close {
+      background: transparent;
       border: none;
-      padding: 8px 18px;
-      border-radius: 50px;
+      color: var(--text-primary);
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .sync-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin: 0 20px 16px;
+      background: var(--active-bg);
+      border-radius: 8px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .status-indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #e01e37;
+      box-shadow: 0 0 6px #e01e37;
+      display: inline-block;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .new-note-btn {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 12px;
       font-family: var(--font-sans);
       font-weight: 600;
-      font-size: 13px;
-      color: var(--text-primary);
+      font-size: 14px;
       cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.2s, transform 0.2s;
-    }
-
-    .bracket-btn:hover {
-      background: var(--badge-bg-hover);
-      transform: scale(1.05);
-    }
-
-    /* ── Footer ── */
-    .lt-footer {
-      text-align: center;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 1rem;
-      border-top: 1px dashed var(--card-border);
-      padding-top: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      margin: 0 20px 20px;
+      transition: background-color 0.2s, transform 0.2s;
+      box-shadow: 0 4px 12px rgba(224, 30, 55, 0.2);
+    }
+
+    .new-note-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .new-note-btn:active {
+      transform: translateY(0);
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin: 10px 24px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      margin: 2px 20px;
+      gap: 12px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .nav-item:hover {
+      background: var(--active-bg);
+      color: var(--text-primary);
+    }
+
+    .nav-item.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .nav-count {
+      margin-left: auto;
+      font-size: 11px;
+      background: var(--active-bg);
+      color: var(--text-secondary);
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+    }
+
+    .nav-item.active .nav-count {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .categories-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar-footer {
+      padding: 20px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 8px;
+    }
+
+    .sidebar-action-btn {
+      flex: 1;
+      background: var(--active-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 10px;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-action-btn:hover {
+      background: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    /* ── Middle Note List ── */
+    .note-list-pane {
+      flex: 1;
+      background: var(--bg-app);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .list-header {
+      height: 72px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: var(--bg-sidebar);
+      flex-shrink: 0;
+    }
+
+    .list-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .sidebar-toggle {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--bg-app);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 10px 12px 10px 36px;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
+      background: var(--bg-sidebar);
+    }
+
+    .list-header-right {
+      display: flex;
+      gap: 6px;
+    }
+
+    .view-toggle-btn {
+      background: var(--bg-app);
+      border: 1px solid var(--border-color);
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .view-toggle-btn:hover {
+      background: var(--active-bg);
+      color: var(--text-primary);
+    }
+
+    .view-toggle-btn.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .list-content {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .active-filter-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    #active-filter-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-transform: capitalize;
+    }
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Note Card ── */
+    .note-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      min-height: 140px;
+    }
+
+    .note-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+    }
+
+    .note-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .note-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .note-card-cat {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .note-card-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .note-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 4px 0 0 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .note-card-preview {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      font-family: var(--font-mono);
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      word-break: break-all;
+      margin: 0;
+    }
+
+    .note-card-actions {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: flex;
+      gap: 6px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .note-card:hover .note-card-actions {
+      opacity: 1;
+    }
+
+    .card-action-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+
+    .card-action-btn:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    /* ── List Layout View ── */
+    .notes-grid.list-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .notes-grid.list-layout .note-card {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      min-height: auto;
+    }
+
+    .notes-grid.list-layout .note-card-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .notes-grid.list-layout .note-card-title {
+      margin: 0;
+      flex: 1;
+      width: 180px;
+    }
+
+    .notes-grid.list-layout .note-card-preview {
+      flex: 2;
+      -webkit-line-clamp: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+    }
+
+    .notes-grid.list-layout .note-card-actions {
+      position: static;
+      opacity: 1;
+    }
+
+    /* ── Editor Pane ── */
+    .editor-pane {
+      width: 450px;
+      background: var(--bg-editor);
+      border-left: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+
+    .editor-pane.closed {
+      width: 0;
+      border-left: none;
+      transform: translateX(100%);
+    }
+
+    .editor-placeholder-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 40px;
+      color: var(--text-muted);
+      text-align: center;
+      gap: 16px;
+    }
+
+    .placeholder-icon {
+      font-size: 48px;
+      color: var(--border-color-hover);
+    }
+
+    .editor-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 450px;
+    }
+
+    .note-viewer-mode,
+    .note-editor-mode {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .editor-toolbar {
+      height: 72px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: var(--bg-card);
+      flex-shrink: 0;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--active-bg);
+      color: var(--text-primary);
+    }
+
+    .viewer-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .viewer-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .note-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .note-date i {
+      vertical-align: middle;
+      margin-right: 2px;
+    }
+
+    .note-view-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin: 0;
+      word-break: break-word;
+    }
+
+    .note-view-body {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      border-top: 1px dashed var(--border-color);
+      padding-top: 16px;
+    }
+
+    /* ── Form Styles ── */
+    .editor-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .form-group-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .editor-input-title {
+      flex: 2;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 600;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .editor-input-cat {
+      flex: 1;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .editor-textarea {
+      flex: 1;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 16px;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.5;
+      resize: none;
+      min-height: 350px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .editor-input-title:focus,
+    .editor-input-cat:focus,
+    .editor-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--active-bg);
+      color: var(--text-primary);
+      border-color: var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border-color);
+    }
+
+    .btn-danger-text {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-danger-text:hover {
+      background: var(--accent-light);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ── Empty State ── */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-secondary);
+      gap: 16px;
+    }
+
+    .empty-icon {
+      font-size: 56px;
+      color: var(--text-muted);
+    }
+
+    .empty-state h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    /* ── Overlay Backdrops ── */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 90;
+      transition: opacity 0.3s ease;
+    }
+
+    /* ── Login screen ── */
+    .login-screen-wrapper {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-app);
+      padding: 20px;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .login-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-card::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      width: 120px;
+      height: 120px;
+      background: var(--accent);
+      filter: blur(80px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .login-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto;
+      box-shadow: 0 8px 16px rgba(224, 30, 55, 0.1);
+    }
+
+    .login-title-group h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .login-title-group p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .login-input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px 16px 12px 42px;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .login-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
+      background: var(--bg-card);
+    }
+
+    .login-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .login-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-footer-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      border-top: 1px dashed var(--border-color);
+      padding-top: 16px;
+    }
+
+    /* ── Toast Notification ── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 10000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Animations */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .animate-spin {
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+
+    /* ── Responsive breakpoints ── */
+    @media (max-width: 1024px) {
+      .editor-pane {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        max-width: 480px;
+        z-index: 200;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .editor-pane.closed {
+        width: 100%;
+        max-width: 480px;
+        transform: translateX(100%);
+        box-shadow: none;
+      }
+
+      .editor-content-wrapper {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .sidebar-toggle {
+        display: block;
+      }
+
+      .hamburger-close {
+        display: block;
+      }
+
+      .editor-pane {
+        max-width: 100%;
+      }
+
+      .editor-pane.closed {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <main class="lt-card">
-
-    <!-- Top Nav Controls -->
-    <div class="lt-top-bar">
-      <div style="display: flex; gap: 8px;">
-        <a class="lt-action-btn" href="https://scobru.github.io/" aria-label="Go Back" title="Go back to index">
-          <i class="ti ti-arrow-left"></i>
-        </a>
-        <a class="lt-action-btn" href="https://github.com/scobru/zenvault" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository" title="GitHub Repository scobru/zenvault">
-          <i class="ti ti-brand-github"></i>
-        </a>
+  <!-- Decryption / Lock Screen -->
+  <div id="login-screen" class="login-screen-wrapper">
+    <div class="login-card">
+      <div class="login-logo">
+        <i class="ti ti-shield-lock"></i>
       </div>
-      <div style="display: flex; gap: 8px;">
-        <button class="lt-action-btn" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Light/Dark Theme">
-          <i class="ti ti-asterisk"></i>
-        </button>
-        <button class="lt-action-btn hidden" id="logout-btn" onclick="logout()" aria-label="Lock Zen Vault"
-          title="Lock Zen Vault">
-          <i class="ti ti-lock"></i>
+      <div class="login-title-group">
+        <h1>ZenVault</h1>
+        <p>Zero-Knowledge E2E Encrypted Private storage.<br>Enter credentials to decrypt your local notes.</p>
+      </div>
+      <div class="login-form">
+        <div class="input-wrapper">
+          <i class="ti ti-user"></i>
+          <input type="text" id="user-input" placeholder="Username" class="login-input" autocomplete="username">
+        </div>
+        <div class="input-wrapper">
+          <i class="ti ti-key"></i>
+          <input type="password" id="pass-input" placeholder="Password" class="login-input" autocomplete="current-password">
+        </div>
+        <button id="login-btn" class="login-btn">
+          <i class="ti ti-lock-open"></i> Decrypt & Enter
         </button>
       </div>
+      <p class="login-footer-desc">
+        <i class="ti ti-info-circle"></i> Decryption keys are derived locally in your browser using Web Crypto APIs. Master credentials never touch any server.
+      </p>
     </div>
+  </div>
 
-    <!-- Profile Header -->
-    <header class="lt-header">
-      <div class="lt-avatar-container">
-        <div class="lt-avatar-fallback ic-zen"><i class="ti ti-lock"></i></div>
-      </div>
-      <h1 class="lt-name">Zen Vault</h1>
-      <p class="lt-bio">End-to-End Encrypted Private Zen Vault</p>
-      <div class="lt-meta-row">
-        <span class="lt-badge">DOC: README.MD</span>
-        <span class="lt-badge lt-badge-accent"><i class="ti ti-shield-lock"></i> E2EE ACTIVE</span>
-      </div>
-    </header>
+  <!-- Dashboard App Layout -->
+  <div id="dashboard" class="dashboard-wrapper hidden">
+    <!-- Sidebar Backdrop Overlay on Mobile -->
+    <div id="sidebar-overlay" class="sidebar-overlay hidden" onclick="toggleSidebar()"></div>
 
-    <!-- Authentication Section -->
-    <section class="lt-section" id="auth-section">
-      <h2 class="lt-section-title" id="auth-toggle" style="cursor: pointer; user-select: none;">
-        unlock Zen Vault <i class="ti ti-chevron-down" id="auth-chevron"
-          style="transition: transform 0.2s; font-size: 14px; margin-left: 4px; transform: rotate(-90deg);"></i>
-      </h2>
-      <div class="lt-card-body hidden" id="auth-body">
-        <p class="lt-card-desc"><i class="ti ti-key" style="color:var(--accent);"></i> Enter credentials to decrypt your
-          local data. Master credentials are required.</p>
-        <div class="lt-form-row">
-          <input type="text" id="user-input" placeholder="Username" class="lt-input">
-          <input type="password" id="pass-input" placeholder="Password" class="lt-input">
-          <button class="lt-btn" id="login-btn" onclick="login()">Decrypt</button>
+    <!-- Sidebar Left Panel -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <i class="ti ti-shield-lock"></i>
+          <span>ZenVault</span>
+        </div>
+        <button class="hamburger-close" onclick="toggleSidebar()" aria-label="Close menu">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+
+      <!-- Sync Status Indicator -->
+      <div class="sync-status">
+        <span class="status-indicator-dot" id="status-ping"></span>
+        <span id="status-footer-text">Connecting P2P...</span>
+      </div>
+
+      <!-- Create New Note FAB -->
+      <button class="new-note-btn" onclick="createNewNote()">
+        <i class="ti ti-plus"></i> New Note
+      </button>
+
+      <!-- Sidebar Navigation / Folders -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        <a href="#" class="nav-item active" id="nav-all" onclick="setCategoryFilter('all')">
+          <i class="ti ti-notes"></i>
+          <span class="nav-text">All Notes</span>
+          <span class="nav-count" id="count-all">0</span>
+        </a>
+
+        <div class="nav-section-title">Categories</div>
+        <div id="sidebar-categories" class="categories-list">
+          <!-- Dynamically populated categories -->
+        </div>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <button class="sidebar-action-btn" onclick="toggleTheme()" title="Toggle Light/Dark Theme">
+          <i class="ti ti-sun" id="theme-icon"></i>
+          <span>Theme</span>
+        </button>
+        <button class="sidebar-action-btn" onclick="logout()" title="Lock Vault">
+          <i class="ti ti-lock"></i>
+          <span>Lock</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Middle Panel: Notes Grid/List -->
+    <main class="note-list-pane">
+      <header class="list-header">
+        <div class="list-header-left">
+          <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open menu">
+            <i class="ti ti-menu-2"></i>
+          </button>
+          <div class="search-box">
+            <i class="ti ti-search search-icon"></i>
+            <input type="text" id="search-input" placeholder="Search title, content, tags..." oninput="handleSearch(this.value)">
+          </div>
+        </div>
+        <div class="list-header-right">
+          <button class="view-toggle-btn active" id="grid-view-btn" onclick="setViewMode('grid')" title="Grid View">
+            <i class="ti ti-layout-grid"></i>
+          </button>
+          <button class="view-toggle-btn" id="list-view-btn" onclick="setViewMode('list')" title="List View">
+            <i class="ti ti-layout-list"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="list-content">
+        <div class="active-filter-bar">
+          <span id="active-filter-label">All Notes</span>
+        </div>
+
+        <!-- Notes Grid container -->
+        <div id="notes-container" class="notes-grid">
+          <!-- Dynamically rendered cards -->
+        </div>
+
+        <!-- Empty state placeholder -->
+        <div id="empty-state" class="empty-state hidden">
+          <i class="ti ti-notes-off empty-icon"></i>
+          <h3>No Notes Found</h3>
+          <p>Create your first secure encrypted note to get started.</p>
+          <button class="btn btn-accent" style="margin-top: 8px;" onclick="createNewNote()">+ Add Note</button>
         </div>
       </div>
-    </section>
+    </main>
 
-    <!-- Lock Screen Placeholder -->
-    <section class="lt-section" id="lock-screen">
-      <div class="lt-card-body" style="text-align: center; padding: 3rem 1.5rem;">
-        <i class="ti ti-shield-lock" style="font-size: 48px; color: var(--accent); margin-bottom: 1rem;"></i>
-        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 0.5rem;">Zen Vault is Locked</h3>
-        <p class="lt-card-desc" style="max-width: 320px; margin: 0 auto;">Your local dataset is securely encrypted
-          inside Gun graph database. Authenticate to view.</p>
+    <!-- Right Panel: Note Editor / Viewer -->
+    <section class="editor-pane closed" id="editor-pane">
+      <!-- Unselected Note state -->
+      <div id="editor-placeholder" class="editor-placeholder-state">
+        <i class="ti ti-file-shield placeholder-icon"></i>
+        <p>Select a note from the list to view or edit, or create a new one.</p>
       </div>
-    </section>
 
-    <!-- Dynamic Main App Content -->
-    <div id="app-content" class="hidden" style="display: flex; flex-direction: column; gap: 24px;">
-      <!-- Secure storage creation -->
-      <section class="lt-section" id="add-section">
-        <h2 class="lt-section-title">secure new data</h2>
-        <div class="lt-card-body">
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <div class="lt-form-row">
-              <input type="text" id="note-title" placeholder="Secret Title" class="lt-input" style="flex: 2;">
-              <input type="text" id="note-cat" placeholder="Tag / Category" class="lt-input" style="flex: 1;">
+      <!-- Active Note view/edit state -->
+      <div id="editor-content" class="editor-content-wrapper hidden">
+        
+        <!-- Viewer Mode -->
+        <div id="note-viewer" class="note-viewer-mode">
+          <div class="editor-toolbar">
+            <button class="icon-btn close-btn" onclick="closeEditor()" title="Close Panel">
+              <i class="ti ti-arrow-left"></i>
+            </button>
+            <div class="toolbar-actions">
+              <button class="btn btn-secondary" onclick="enterEditMode()">
+                <i class="ti ti-edit"></i> Edit
+              </button>
+              <button class="btn btn-danger-text" onclick="deleteActiveNote()">
+                <i class="ti ti-trash"></i> Delete
+              </button>
             </div>
-            <textarea id="note-body" placeholder="Your private encrypted note..." class="lt-input"
-              style="min-height: 100px; resize: vertical;"></textarea>
-            <div style="display: flex; justify-content: flex-end; gap: 8px;">
-              <button class="lt-btn hidden" id="cancel-edit-btn" onclick="cancelEdit()" style="background: var(--badge-bg); color: var(--text-primary);">Cancel</button>
-              <button class="lt-btn" id="add-note-btn" onclick="addNote()">Safe Store</button>
+          </div>
+          <div class="viewer-body">
+            <div class="viewer-meta">
+              <span class="category-pill" id="view-note-cat">Private</span>
+              <span class="note-date" id="view-note-date">July 1, 2026</span>
+            </div>
+            <h2 id="view-note-title" class="note-view-title">My secret note</h2>
+            <div id="view-note-body" class="note-view-body">
+              <!-- Full Note Content -->
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- Decrypted Records Area -->
-      <div id="notes-container" class="category-wrapper"></div>
-    </div>
+        <!-- Editor Mode -->
+        <div id="note-editor" class="note-editor-mode hidden">
+          <div class="editor-toolbar">
+            <button class="icon-btn close-btn" onclick="cancelEditorEdit()" title="Cancel">
+              <i class="ti ti-x"></i> Cancel
+            </button>
+            <div class="toolbar-actions">
+              <button class="btn btn-accent" onclick="saveActiveNote()">
+                <i class="ti ti-device-floppy"></i> Save
+              </button>
+            </div>
+          </div>
+          <form class="editor-form" onsubmit="event.preventDefault();">
+            <div class="form-group-row">
+              <input type="text" id="editor-note-title" placeholder="Secret Title" class="editor-input-title" required>
+              <input type="text" id="editor-note-cat" placeholder="Tag / Category" class="editor-input-cat">
+            </div>
+            <textarea id="editor-note-body" placeholder="Write your private encrypted note here..." class="editor-textarea" required></textarea>
+          </form>
+        </div>
 
-    <!-- Terminal Status Footer -->
-    <footer class="lt-footer">
-      <span style="position: relative; display: flex;">
-        <span id="status-ping"
-          style="width: 8px; height: 8px; border-radius: 50%; display: inline-block; background-color: #e01e37; box-shadow: 0 0 6px #e01e37;"></span>
-      </span>
-      <span class="font-mono" id="status-footer-text">ZEN_ENTROPY_NETWORK // E2EE_LOCKED</span>
-    </footer>
+      </div>
+    </section>
+  </div>
 
-  </main>
-
-  <!-- Storage and Theme configurations scripts -->
+  <!-- Theme Script -->
   <script>
     let currentTheme = localStorage.getItem('theme') || 'light';
 
     function applyTheme() {
-      if (currentTheme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      const themeIcon = document.getElementById('theme-icon');
+      if (themeIcon) {
+        if (currentTheme === 'light') {
+          themeIcon.className = 'ti ti-sun';
+        } else {
+          themeIcon.className = 'ti ti-moon';
+        }
       }
     }
 
@@ -707,15 +1323,24 @@
     }
 
     document.addEventListener('DOMContentLoaded', applyTheme);
+    window.toggleTheme = toggleTheme;
   </script>
 
+  <!-- P2P and Encryption Module -->
   <script type="module">
     import ZEN from 'https://cdn.jsdelivr.net/gh/scobru/zen@main/zen.min.js';
 
     let zen;
     let pair;
     let isAuthenticated = false;
-    let editingSoul = null;
+
+    // Local decrypted notes store
+    const localNotes = {};
+    let selectedNoteId = null;
+    let isEditing = false;
+    let viewMode = localStorage.getItem('zenvault_viewmode') || 'grid';
+    let activeCategory = 'all';
+    let searchQuery = '';
 
     const relays = ["wss://zen.akao.io:8420/zen", "wss://zen0.akao.io:8420/zen", "wss://zen1.akao.io:8420/zen"];
     localStorage.removeItem('zenPeers');
@@ -724,6 +1349,7 @@
       peers: relays,
     });
 
+    // Handle authentication / unlock
     async function login() {
       const userInput = document.getElementById('user-input').value || sessionStorage.getItem('zen_user');
       const passInput = document.getElementById('pass-input').value || sessionStorage.getItem('zen_pass');
@@ -731,7 +1357,9 @@
 
       try {
         const btn = document.getElementById('login-btn');
-        btn.innerHTML = 'Unlocking...';
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Decrypting...';
+        btn.disabled = true;
 
         pair = await ZEN.pair(null, { seed: userInput + passInput });
         isAuthenticated = true;
@@ -739,119 +1367,42 @@
         sessionStorage.setItem('zen_user', userInput);
         sessionStorage.setItem('zen_pass', passInput);
 
-        document.getElementById('auth-section').classList.add('hidden');
-        document.getElementById('lock-screen').classList.add('hidden');
-        document.getElementById('app-content').classList.remove('hidden');
-        document.getElementById('logout-btn').classList.remove('hidden');
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
 
-        // Update system indicator
+        // Update E2EE ping indicator
         const ping = document.getElementById('status-ping');
-        ping.style.backgroundColor = '#2ec4b6';
-        ping.style.boxShadow = '0 0 6px #2ec4b6';
-        document.getElementById('status-footer-text').textContent = 'ZEN_ENTROPY_NETWORK // E2EE_DECRYPTED';
+        if (ping) {
+          ping.style.backgroundColor = '#2ec4b6';
+          ping.style.boxShadow = '0 0 8px #2ec4b6';
+        }
+        const statusText = document.getElementById('status-footer-text');
+        if (statusText) {
+          statusText.textContent = 'Decrypted & Synced';
+        }
 
+        applyTheme(); // Sync layout assets
         loadNotes();
       } catch (e) {
         console.error("Login Error:", e);
         alert("Decryption failed: " + e.message);
-        document.getElementById('login-btn').innerHTML = 'Decrypt';
-      }
-    }
-
-    async function addNote() {
-      if (!isAuthenticated) return;
-      const title = document.getElementById('note-title').value;
-      const body = document.getElementById('note-body').value;
-      const cat = document.getElementById('note-cat').value || 'private';
-
-      if (!title || !body) return;
-
-      const encTitle = await ZEN.encrypt(title, pair);
-      const encBody = await ZEN.encrypt(body, pair);
-      const encCat = await ZEN.encrypt(cat, pair);
-
-      const note = { title: encTitle, body: encBody, cat: encCat, timestamp: Date.now(), encrypted: true };
-      const soul = editingSoul || ('vault-' + Date.now() + '-' + Math.random().toString(36).substring(7));
-
-      zen.get('~' + pair.pub).get('vault').get(soul).put(note, (ack) => {
-        if (ack && ack.err) {
-          alert("Storage failed: " + ack.err);
-        } else {
-          if (editingSoul) {
-            showToast('Secure data updated successfully!');
-            cancelEdit();
-          } else {
-            showToast('Data secured successfully!');
-          }
+        const btn = document.getElementById('login-btn');
+        if (btn) {
+          btn.innerHTML = '<i class="ti ti-lock-open"></i> Decrypt & Enter';
+          btn.disabled = false;
         }
-      }, { authenticator: pair });
-
-      if (!editingSoul) {
-        document.getElementById('note-title').value = '';
-        document.getElementById('note-body').value = '';
-        document.getElementById('note-cat').value = '';
       }
     }
 
-    function startEdit(id, title, body, cat) {
-      editingSoul = id;
-      document.getElementById('note-title').value = title;
-      document.getElementById('note-cat').value = cat || 'private';
-      document.getElementById('note-body').value = body;
-      document.querySelector('#add-section .lt-section-title').textContent = 'edit secure data';
-      document.getElementById('add-note-btn').textContent = 'Update';
-      document.getElementById('cancel-edit-btn').classList.remove('hidden');
-      document.getElementById('add-section').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function cancelEdit() {
-      editingSoul = null;
-      document.getElementById('note-title').value = '';
-      document.getElementById('note-cat').value = '';
-      document.getElementById('note-body').value = '';
-      document.querySelector('#add-section .lt-section-title').textContent = 'secure new data';
-      document.getElementById('add-note-btn').textContent = 'Safe Store';
-      document.getElementById('cancel-edit-btn').classList.add('hidden');
-    }
-
-    function showToast(message) {
-      let toast = document.getElementById('toast-notification');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toast-notification';
-        toast.className = 'toast';
-        document.body.appendChild(toast);
-      }
-      toast.innerHTML = `<i class="ti ti-circle-check" style="color: var(--accent);"></i> ${message}`;
-      // force reflow
-      toast.offsetHeight;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
-    }
-
-    function deleteNote(soul) {
-      if (!isAuthenticated) return;
-      if (!confirm("Permanently erase this note?")) return;
-
-      zen.get('~' + pair.pub).get('vault').get(soul).put(null, (ack) => {
-        if (ack && !ack.err) {
-          const el = document.getElementById('note-' + soul);
-          if (el) el.remove();
-        }
-      }, { authenticator: pair });
-    }
-
-    async function loadNotes() {
-      const container = document.getElementById('notes-container');
-      container.innerHTML = '';
-      const categories = {};
-
+    // Load P2P Encrypted notes subscription
+    function loadNotes() {
       zen.get('~' + pair.pub).get('vault').map().on(async (note, id) => {
         if (!note) {
-          const el = document.getElementById('note-' + id);
-          if (el) el.remove();
+          delete localNotes[id];
+          if (selectedNoteId === id) {
+            closeEditor();
+          }
+          triggerRender();
           return;
         }
 
@@ -861,81 +1412,372 @@
           body = await ZEN.decrypt(note.body, pair);
           cat = await ZEN.decrypt(note.cat, pair) || 'private';
         } catch (e) {
-          console.warn("Could not decrypt note:", id);
+          console.warn("Could not decrypt note node:", id);
           return;
         }
 
-        if (!title || !body) return;
+        localNotes[id] = {
+          id,
+          title,
+          body,
+          cat,
+          timestamp: note.timestamp || Date.now()
+        };
 
-        if (!categories[cat]) {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'category-wrapper';
-
-          const secHeader = document.createElement('div');
-          secHeader.className = 'section-divider';
-          secHeader.textContent = cat;
-          wrapper.appendChild(secHeader);
-
-          const catList = document.createElement('div');
-          catList.className = 'items-grid';
-          catList.id = `cat-${cat}`;
-          wrapper.appendChild(catList);
-
-          container.appendChild(wrapper);
-          categories[cat] = catList;
-        }
-
-        const existingCard = document.getElementById('note-' + id);
-        if (existingCard) {
-          existingCard.remove();
-        }
-
-        const timestamp = note.timestamp || Date.now();
-        const dateStr = new Date(timestamp).toLocaleDateString(navigator.language || 'it-IT', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        });
-
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        card.id = 'note-' + id;
-        card.onclick = () => openZoomModal(title, body, dateStr);
-
-        card.innerHTML = `
-          <div class="item-card-icon"><i class="ti ti-lock-open"></i></div>
-          <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px; font-family: var(--font-mono);">${dateStr}</div>
-          <h3>${title}</h3>
-          <p class="note-text" style="white-space: pre-wrap; font-family: var(--font-mono); word-break: break-word;">${body}</p>
-        `;
-
-        if (isAuthenticated) {
-          const editBtn = document.createElement('button');
-          editBtn.className = 'edit-btn';
-          editBtn.innerHTML = '<i class="ti ti-edit"></i>';
-          editBtn.title = 'Edit Note';
-          editBtn.style.right = '50px';
-          editBtn.onclick = (e) => {
-            e.stopPropagation();
-            startEdit(id, title, body, cat);
-          };
-          card.appendChild(editBtn);
-
-          const delBtn = document.createElement('button');
-          delBtn.className = 'trash-btn';
-          delBtn.innerHTML = '<i class="ti ti-trash"></i>';
-          delBtn.title = 'Erase Data';
-          delBtn.onclick = (e) => {
-            e.stopPropagation();
-            deleteNote(id);
-          };
-          card.appendChild(delBtn);
-        }
-
-        categories[cat].appendChild(card);
+        triggerRender();
       });
+    }
+
+    // Debounced UI updates to handle GunDB load bursts
+    let renderTimeout = null;
+    function triggerRender() {
+      if (renderTimeout) clearTimeout(renderTimeout);
+      renderTimeout = setTimeout(() => {
+        renderApp();
+      }, 50);
+    }
+
+    // Master render function
+    function renderApp() {
+      const notesArray = Object.values(localNotes);
+      
+      // Sort: Newest notes first
+      notesArray.sort((a, b) => b.timestamp - a.timestamp);
+
+      // Extract unique categories & update Sidebar Counts
+      const categories = {};
+      notesArray.forEach(n => {
+        categories[n.cat] = (categories[n.cat] || 0) + 1;
+      });
+
+      // Update sidebar categories
+      const catContainer = document.getElementById('sidebar-categories');
+      catContainer.innerHTML = '';
+      Object.entries(categories).sort().forEach(([catName, count]) => {
+        const item = document.createElement('a');
+        item.href = '#';
+        item.className = `nav-item ${activeCategory === catName ? 'active' : ''}`;
+        item.onclick = (e) => {
+          e.preventDefault();
+          setCategoryFilter(catName);
+        };
+        item.innerHTML = `
+          <i class="ti ti-folder"></i>
+          <span class="nav-text">${escapeHtml(catName)}</span>
+          <span class="nav-count">${count}</span>
+        `;
+        catContainer.appendChild(item);
+      });
+
+      // Update "All Notes" count
+      document.getElementById('count-all').textContent = notesArray.length;
+      document.getElementById('nav-all').className = `nav-item ${activeCategory === 'all' ? 'active' : ''}`;
+
+      // Filter Notes
+      let filtered = notesArray;
+      if (activeCategory !== 'all') {
+        filtered = filtered.filter(n => n.cat === activeCategory);
+      }
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(n =>
+          n.title.toLowerCase().includes(q) ||
+          n.body.toLowerCase().includes(q) ||
+          n.cat.toLowerCase().includes(q)
+        );
+      }
+
+      // Render Active Filter Label
+      const filterLabel = document.getElementById('active-filter-label');
+      if (activeCategory === 'all') {
+        filterLabel.textContent = searchQuery ? `Search Results for "${searchQuery}"` : 'All Notes';
+      } else {
+        filterLabel.textContent = searchQuery ? `Search in "${activeCategory}" for "${searchQuery}"` : `Category: ${activeCategory}`;
+      }
+
+      // Render Notes list / Grid cards
+      const container = document.getElementById('notes-container');
+      const emptyState = document.getElementById('empty-state');
+      container.innerHTML = '';
+
+      // View toggle updates
+      const gridBtn = document.getElementById('grid-view-btn');
+      const listBtn = document.getElementById('list-view-btn');
+      if (viewMode === 'list') {
+        container.classList.add('list-layout');
+        gridBtn.classList.remove('active');
+        listBtn.classList.add('active');
+      } else {
+        container.classList.remove('list-layout');
+        gridBtn.classList.add('active');
+        listBtn.classList.remove('active');
+      }
+
+      if (filtered.length === 0) {
+        container.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+      } else {
+        container.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+
+        filtered.forEach(note => {
+          const card = document.createElement('div');
+          const isSelected = selectedNoteId === note.id;
+          card.className = `note-card ${isSelected ? 'selected' : ''}`;
+          card.onclick = () => selectNote(note.id);
+
+          const dateStr = formatDate(note.timestamp);
+
+          card.innerHTML = `
+            <div class="note-card-header">
+              <span class="note-card-cat">${escapeHtml(note.cat)}</span>
+              <span class="note-card-date">${dateStr}</span>
+            </div>
+            <h3 class="note-card-title">${escapeHtml(note.title)}</h3>
+            <p class="note-card-preview">${escapeHtml(note.body)}</p>
+            <div class="note-card-actions">
+              <button class="card-action-btn" onclick="event.stopPropagation(); editNoteFromCard('${note.id}')" title="Edit Note">
+                <i class="ti ti-edit"></i>
+              </button>
+              <button class="card-action-btn" onclick="event.stopPropagation(); deleteNoteFromCard('${note.id}')" title="Delete Note">
+                <i class="ti ti-trash"></i>
+              </button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      // Render Editor Pane details
+      renderEditorPane();
+    }
+
+    // Detail Panel Renderer
+    function renderEditorPane() {
+      const editorPane = document.getElementById('editor-pane');
+      const placeholder = document.getElementById('editor-placeholder');
+      const content = document.getElementById('editor-content');
+
+      if (!selectedNoteId) {
+        editorPane.classList.add('closed');
+        placeholder.classList.remove('hidden');
+        content.classList.add('hidden');
+        return;
+      }
+
+      editorPane.classList.remove('closed');
+      placeholder.classList.add('hidden');
+      content.classList.remove('hidden');
+
+      const viewerMode = document.getElementById('note-viewer');
+      const editorMode = document.getElementById('note-editor');
+
+      if (isEditing) {
+        viewerMode.classList.add('hidden');
+        editorMode.classList.remove('hidden');
+
+        const titleInput = document.getElementById('editor-note-title');
+        const catInput = document.getElementById('editor-note-cat');
+        const bodyTextarea = document.getElementById('editor-note-body');
+
+        if (selectedNoteId === 'new') {
+          // If we haven't touched values yet, keep them empty
+          if (!titleInput.dataset.modified) {
+            titleInput.value = '';
+            catInput.value = '';
+            bodyTextarea.value = '';
+          }
+        } else {
+          const note = localNotes[selectedNoteId];
+          if (note && !titleInput.dataset.modified) {
+            titleInput.value = note.title;
+            catInput.value = note.cat;
+            bodyTextarea.value = note.body;
+          }
+        }
+      } else {
+        viewerMode.classList.remove('hidden');
+        editorMode.classList.add('hidden');
+
+        // Clear modifications state
+        delete document.getElementById('editor-note-title').dataset.modified;
+
+        const note = localNotes[selectedNoteId];
+        if (note) {
+          document.getElementById('view-note-cat').textContent = note.cat;
+          document.getElementById('view-note-date').innerHTML = `<i class="ti ti-calendar-event"></i> ${formatDate(note.timestamp)}`;
+          document.getElementById('view-note-title').textContent = note.title;
+          
+          const viewBody = document.getElementById('view-note-body');
+          viewBody.textContent = note.body; // Safe plain text rendering
+        }
+      }
+    }
+
+    // Editor actions
+    async function saveActiveNote() {
+      if (!isAuthenticated) return;
+      const title = document.getElementById('editor-note-title').value.trim();
+      const body = document.getElementById('editor-note-body').value.trim();
+      const cat = document.getElementById('editor-note-cat').value.trim() || 'private';
+
+      if (!title) {
+        showToast('Please enter a note title.');
+        return;
+      }
+      if (!body) {
+        showToast('Please enter note content.');
+        return;
+      }
+
+      const encTitle = await ZEN.encrypt(title, pair);
+      const encBody = await ZEN.encrypt(body, pair);
+      const encCat = await ZEN.encrypt(cat, pair);
+
+      const note = { title: encTitle, body: encBody, cat: encCat, timestamp: Date.now(), encrypted: true };
+      
+      const isNew = selectedNoteId === 'new';
+      const soul = isNew ? ('vault-' + Date.now() + '-' + Math.random().toString(36).substring(7)) : selectedNoteId;
+
+      const saveBtn = document.querySelector('#note-editor .btn-accent');
+      const originalHtml = saveBtn.innerHTML;
+      saveBtn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Saving...';
+      saveBtn.disabled = true;
+
+      zen.get('~' + pair.pub).get('vault').get(soul).put(note, (ack) => {
+        saveBtn.innerHTML = originalHtml;
+        saveBtn.disabled = false;
+        if (ack && ack.err) {
+          alert("Storage failed: " + ack.err);
+        } else {
+          showToast(isNew ? 'Note encrypted and secured!' : 'Secure note updated!');
+          isEditing = false;
+          selectedNoteId = soul; // Switch back to view mode of the saved note
+          triggerRender();
+        }
+      }, { authenticator: pair });
+    }
+
+    async function deleteActiveNote() {
+      if (!selectedNoteId || selectedNoteId === 'new') return;
+      await deleteNote(selectedNoteId);
+    }
+
+    async function deleteNote(soul) {
+      if (!isAuthenticated) return;
+      if (!confirm("Are you sure you want to permanently erase this encrypted note?")) return;
+
+      zen.get('~' + pair.pub).get('vault').get(soul).put(null, (ack) => {
+        if (ack && !ack.err) {
+          showToast('Note erased from network.');
+          if (selectedNoteId === soul) {
+            selectedNoteId = null;
+            isEditing = false;
+          }
+          delete localNotes[soul];
+          triggerRender();
+        } else if (ack && ack.err) {
+          alert("Deletion failed: " + ack.err);
+        }
+      }, { authenticator: pair });
+    }
+
+    // Helper functions
+    function selectNote(id) {
+      selectedNoteId = id;
+      isEditing = false;
+      triggerRender();
+    }
+
+    function createNewNote() {
+      selectedNoteId = 'new';
+      isEditing = true;
+
+      // Track that inputs are fresh
+      const titleInput = document.getElementById('editor-note-title');
+      const catInput = document.getElementById('editor-note-cat');
+      const bodyTextarea = document.getElementById('editor-note-body');
+      
+      delete titleInput.dataset.modified;
+      titleInput.value = '';
+      catInput.value = '';
+      bodyTextarea.value = '';
+
+      triggerRender();
+
+      // Auto focus title input
+      setTimeout(() => {
+        titleInput.focus();
+      }, 50);
+
+      // Close sidebar on mobile
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar.classList.contains('open')) {
+        toggleSidebar();
+      }
+    }
+
+    function editNoteFromCard(id) {
+      selectedNoteId = id;
+      isEditing = true;
+      const titleInput = document.getElementById('editor-note-title');
+      delete titleInput.dataset.modified; // Force reload note data into inputs
+      triggerRender();
+    }
+
+    function deleteNoteFromCard(id) {
+      deleteNote(id);
+    }
+
+    function enterEditMode() {
+      isEditing = true;
+      const titleInput = document.getElementById('editor-note-title');
+      delete titleInput.dataset.modified; // Load current note data
+      triggerRender();
+    }
+
+    // Handles the Cancel button when editing or creating a note
+    function cancelEditorEdit() {
+      isEditing = false;
+      if (selectedNoteId === 'new') {
+        selectedNoteId = null;
+      }
+      triggerRender();
+    }
+
+    function closeEditor() {
+      selectedNoteId = null;
+      isEditing = false;
+      triggerRender();
+    }
+
+    function setCategoryFilter(cat) {
+      activeCategory = cat;
+      triggerRender();
+      
+      // Close sidebar overlay on mobile
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar.classList.contains('open')) {
+        toggleSidebar();
+      }
+    }
+
+    function handleSearch(val) {
+      searchQuery = val;
+      triggerRender();
+    }
+
+    function setViewMode(mode) {
+      viewMode = mode;
+      localStorage.setItem('zenvault_viewmode', mode);
+      triggerRender();
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('hidden');
     }
 
     function logout() {
@@ -944,67 +1786,84 @@
       window.location.reload();
     }
 
-    window.login = login;
-    window.logout = logout;
-    window.addNote = addNote;
-    window.cancelEdit = cancelEdit;
-    window.showToast = showToast;
-
-    document.getElementById('user-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('pass-input').focus(); });
-    document.getElementById('pass-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') login(); });
-    document.getElementById('login-btn').addEventListener('click', login);
-    document.getElementById('add-note-btn').addEventListener('click', addNote);
-
-    function openZoomModal(title, body, dateStr) {
-      document.getElementById('zoom-title').textContent = title;
-      document.getElementById('zoom-date').textContent = dateStr;
-      document.getElementById('zoom-body').innerText = body;
-      document.getElementById('zoom-modal').classList.add('is-open');
+    // Toast UI component helper
+    function showToast(message) {
+      let toast = document.getElementById('toast-notification');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-notification';
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<i class="ti ti-circle-check" style="color: var(--accent); font-size: 16px;"></i> ${message}`;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     }
 
-    function closeZoomModal() {
-      document.getElementById('zoom-modal').classList.remove('is-open');
+    // Input string utilities
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
-    window.openZoomModal = openZoomModal;
-    window.closeZoomModal = closeZoomModal;
-
-    const savedUser = sessionStorage.getItem('zen_user');
-    const savedPass = sessionStorage.getItem('zen_pass');
-    if (savedUser && savedPass) login();
-
-    // Collapsible Auth Box Interaction
-    const authToggle = document.getElementById('auth-toggle');
-    const authBody = document.getElementById('auth-body');
-    const authChevron = document.getElementById('auth-chevron');
-
-    if (authToggle && authBody) {
-      authToggle.addEventListener('click', () => {
-        authBody.classList.toggle('hidden');
-        if (authBody.classList.contains('hidden')) {
-          authChevron.style.transform = 'rotate(-90deg)';
-        } else {
-          authChevron.style.transform = '';
-        }
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      return date.toLocaleDateString(navigator.language || 'it-IT', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
       });
     }
-  </script>
 
-  <!-- Note Zoom Modal Overlay -->
-  <div class="modal" id="zoom-modal" onclick="closeZoomModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="modal-title" id="zoom-title">DECRYPTED_SECRET</div>
-      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px; font-family: var(--font-mono);"
-        id="zoom-date">--/--/--</div>
-      <div class="modal-text" id="zoom-body"
-        style="white-space: pre-wrap; font-family: var(--font-mono); word-break: break-word; font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-height: 400px; overflow-y: auto; margin-bottom: 25px;">
-        <!-- Content injected dynamically -->
-      </div>
-      <div class="modal-close">
-        <button class="bracket-btn" onclick="closeZoomModal()">Close</button>
-      </div>
-    </div>
-  </div>
+    // Attach modules to window context for HTML inline accessors
+    window.login = login;
+    window.logout = logout;
+    window.createNewNote = createNewNote;
+    window.saveActiveNote = saveActiveNote;
+    window.deleteActiveNote = deleteActiveNote;
+    window.enterEditMode = enterEditMode;
+    window.cancelEditorEdit = cancelEditorEdit;
+    window.closeEditor = closeEditor;
+    window.setCategoryFilter = setCategoryFilter;
+    window.handleSearch = handleSearch;
+    window.setViewMode = setViewMode;
+    window.toggleSidebar = toggleSidebar;
+    window.editNoteFromCard = editNoteFromCard;
+    window.deleteNoteFromCard = deleteNoteFromCard;
+
+    // Keyboard navigation
+    document.getElementById('user-input').addEventListener('keydown', (e) => { 
+      if (e.key === 'Enter') document.getElementById('pass-input').focus(); 
+    });
+    document.getElementById('pass-input').addEventListener('keydown', (e) => { 
+      if (e.key === 'Enter') login(); 
+    });
+    document.getElementById('login-btn').addEventListener('click', login);
+
+    // Track input modification to allow typing without being overwritten by GunDB map updates
+    const inputs = ['editor-note-title', 'editor-note-cat', 'editor-note-body'];
+    inputs.forEach(id => {
+      document.getElementById(id).addEventListener('input', (e) => {
+        e.target.dataset.modified = "true";
+      });
+    });
+
+    // Auto-login session recovery check
+    const savedUser = sessionStorage.getItem('zen_user');
+    const savedPass = sessionStorage.getItem('zen_pass');
+    if (savedUser && savedPass) {
+      login();
+    }
+  </script>
 </body>
 
 </html>
