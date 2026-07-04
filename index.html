@@ -1042,8 +1042,13 @@
 
     /* Animations */
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .animate-spin {
@@ -1127,14 +1132,16 @@
         </div>
         <div class="input-wrapper">
           <i class="ti ti-key"></i>
-          <input type="password" id="pass-input" placeholder="Password" class="login-input" autocomplete="current-password">
+          <input type="password" id="pass-input" placeholder="Password" class="login-input"
+            autocomplete="current-password">
         </div>
         <button id="login-btn" class="login-btn">
           <i class="ti ti-lock-open"></i> Decrypt & Enter
         </button>
       </div>
       <p class="login-footer-desc">
-        <i class="ti ti-info-circle"></i> Decryption keys are derived locally in your browser using Web Crypto APIs. Master credentials never touch any server.
+        <i class="ti ti-info-circle"></i> Decryption keys are derived locally in your browser using Web Crypto APIs.
+        Master credentials never touch any server.
       </p>
     </div>
   </div>
@@ -1204,7 +1211,8 @@
           </button>
           <div class="search-box">
             <i class="ti ti-search search-icon"></i>
-            <input type="text" id="search-input" placeholder="Search title, content, tags..." oninput="handleSearch(this.value)">
+            <input type="text" id="search-input" placeholder="Search title, content, tags..."
+              oninput="handleSearch(this.value)">
           </div>
         </div>
         <div class="list-header-right">
@@ -1247,7 +1255,7 @@
 
       <!-- Active Note view/edit state -->
       <div id="editor-content" class="editor-content-wrapper hidden">
-        
+
         <!-- Viewer Mode -->
         <div id="note-viewer" class="note-viewer-mode">
           <div class="editor-toolbar">
@@ -1292,7 +1300,8 @@
               <input type="text" id="editor-note-title" placeholder="Secret Title" class="editor-input-title" required>
               <input type="text" id="editor-note-cat" placeholder="Tag / Category" class="editor-input-cat">
             </div>
-            <textarea id="editor-note-body" placeholder="Write your private encrypted note here..." class="editor-textarea" required></textarea>
+            <textarea id="editor-note-body" placeholder="Write your private encrypted note here..."
+              class="editor-textarea" required></textarea>
           </form>
         </div>
 
@@ -1342,7 +1351,7 @@
     let activeCategory = 'all';
     let searchQuery = '';
 
-    const relays = ["wss://zen.akao.io:8420/zen", "wss://zen0.akao.io:8420/zen", "wss://zen1.akao.io:8420/zen"];
+    const relays = ["wss://delay.scobrudot.dev/zen", "wss://delay.up.railway.app/zen", "wss://zen.akao.io:8420/zen", "wss://zen0.akao.io:8420/zen", "wss://zen1.akao.io:8420/zen"];
     localStorage.removeItem('zenPeers');
 
     zen = new ZEN({
@@ -1440,7 +1449,7 @@
     // Master render function
     function renderApp() {
       const notesArray = Object.values(localNotes);
-      
+
       // Sort: Newest notes first
       notesArray.sort((a, b) => b.timestamp - a.timestamp);
 
@@ -1607,7 +1616,7 @@
           document.getElementById('view-note-cat').textContent = note.cat;
           document.getElementById('view-note-date').innerHTML = `<i class="ti ti-calendar-event"></i> ${formatDate(note.timestamp)}`;
           document.getElementById('view-note-title').textContent = note.title;
-          
+
           const viewBody = document.getElementById('view-note-body');
           viewBody.textContent = note.body; // Safe plain text rendering
         }
@@ -1635,7 +1644,7 @@
       const encCat = await ZEN.encrypt(cat, pair);
 
       const note = { title: encTitle, body: encBody, cat: encCat, timestamp: Date.now(), encrypted: true };
-      
+
       const isNew = selectedNoteId === 'new';
       const soul = isNew ? ('vault-' + Date.now() + '-' + Math.random().toString(36).substring(7)) : selectedNoteId;
 
@@ -1697,7 +1706,7 @@
       const titleInput = document.getElementById('editor-note-title');
       const catInput = document.getElementById('editor-note-cat');
       const bodyTextarea = document.getElementById('editor-note-body');
-      
+
       delete titleInput.dataset.modified;
       titleInput.value = '';
       catInput.value = '';
@@ -1754,7 +1763,7 @@
     function setCategoryFilter(cat) {
       activeCategory = cat;
       triggerRender();
-      
+
       // Close sidebar overlay on mobile
       const sidebar = document.querySelector('.sidebar');
       if (sidebar.classList.contains('open')) {
@@ -1841,11 +1850,11 @@
     window.deleteNoteFromCard = deleteNoteFromCard;
 
     // Keyboard navigation
-    document.getElementById('user-input').addEventListener('keydown', (e) => { 
-      if (e.key === 'Enter') document.getElementById('pass-input').focus(); 
+    document.getElementById('user-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('pass-input').focus();
     });
-    document.getElementById('pass-input').addEventListener('keydown', (e) => { 
-      if (e.key === 'Enter') login(); 
+    document.getElementById('pass-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') login();
     });
     document.getElementById('login-btn').addEventListener('click', login);
 
