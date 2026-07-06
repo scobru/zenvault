@@ -732,7 +732,8 @@
     }
 
     .editor-input-title {
-      flex: 2;
+      width: 100%;
+      min-width: 0;
       background: var(--input-bg);
       border: 1px solid var(--border-color);
       color: var(--text-primary);
@@ -745,7 +746,8 @@
     }
 
     .editor-input-cat {
-      flex: 1;
+      width: 100%;
+      min-width: 0;
       background: var(--input-bg);
       border: 1px solid var(--border-color);
       color: var(--text-primary);
@@ -1081,6 +1083,11 @@
     }
 
     @media (max-width: 768px) {
+      .form-group-row {
+        flex-direction: column;
+        gap: 16px;
+      }
+
       .sidebar {
         position: absolute;
         top: 0;
@@ -1336,10 +1343,8 @@
             </div>
           </div>
           <form class="editor-form" onsubmit="event.preventDefault();">
-            <div class="form-group-row">
-              <input type="text" id="editor-note-title" placeholder="Secret Title" class="editor-input-title" required>
-              <input type="text" id="editor-note-cat" placeholder="Tag / Category" class="editor-input-cat">
-            </div>
+            <input type="text" id="editor-note-title" placeholder="Secret Title" class="editor-input-title" required>
+            <input type="text" id="editor-note-cat" placeholder="Tag / Category" class="editor-input-cat">
             <textarea id="editor-note-body" placeholder="Write your private encrypted note here..."
               class="editor-textarea" required></textarea>
           </form>
