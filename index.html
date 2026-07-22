@@ -1590,10 +1590,10 @@
             <h3 class="note-card-title">${escapeHtml(note.title)}</h3>
             <p class="note-card-preview">${escapeHtml(note.body)}</p>
             <div class="note-card-actions">
-              <button class="card-action-btn" onclick="event.stopPropagation(); editNoteFromCard('${note.id}')" title="Edit Note">
+              <button class="card-action-btn" onclick="event.stopPropagation(); editNoteFromCard('${escapeJs(note.id)}')" title="Edit Note">
                 <i class="ti ti-edit"></i>
               </button>
-              <button class="card-action-btn" onclick="event.stopPropagation(); deleteNoteFromCard('${note.id}')" title="Delete Note">
+              <button class="card-action-btn" onclick="event.stopPropagation(); deleteNoteFromCard('${escapeJs(note.id)}')" title="Delete Note">
                 <i class="ti ti-trash"></i>
               </button>
             </div>
@@ -1849,7 +1849,7 @@
         toast.className = 'toast';
         document.body.appendChild(toast);
       }
-      toast.innerHTML = `<i class="ti ti-circle-check" style="color: var(--accent); font-size: 16px;"></i> ${message}`;
+      toast.innerHTML = `<i class="ti ti-circle-check" style="color: var(--accent); font-size: 16px;"></i> ${escapeHtml(message)}`;
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
@@ -1865,6 +1865,10 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+    }
+
+    function escapeJs(str) {
+      return String(str || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     }
 
     function formatDate(timestamp) {
